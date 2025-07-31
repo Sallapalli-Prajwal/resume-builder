@@ -23,6 +23,7 @@ const LandingPage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const handleCTA = () => {
     if (!user) {
+      setCurrentPage("login");
       setOpenAuthModal(true);
     } else {
       navigate("/dashboard");
@@ -94,6 +95,7 @@ const LandingPage = () => {
                   className={landingPageStyles.mobileAuthButton}
                   onClick={() => {
                     setOpenAuthModal(true);
+                     setCurrentPage("login");
                     setMobileMenuOpen(false);
                   }}
                 >
