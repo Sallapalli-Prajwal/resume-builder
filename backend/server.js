@@ -18,7 +18,7 @@ const PORT = 4000;
 
 app.use(cors());
 
-
+// Set up CORS options
 //connect db 
 connectDB()
     .then(() => console.log('Database connected successfully'))
