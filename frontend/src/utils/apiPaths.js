@@ -1,4 +1,4 @@
-export const BASE_URL = "http://54.193.179.152:4000/";
+export const BASE_URL = "http://54.151.121.90:4000/";
 
 // Routes used for frontend;
 
