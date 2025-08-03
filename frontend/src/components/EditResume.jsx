@@ -249,10 +249,11 @@ const EditResume = () => {
               errors.push(`Company is required in experience ${index + 1}`);
             if (!role || !role.trim())
               errors.push(`Role is required in experience ${index + 1}`);
-            if (!startDate || !endDate)
-              errors.push(
-                `Start and End dates are required in experience ${index + 1}`
-              );
+            if (!startDate || (!endDate && endDate !== "Present"))
+  errors.push(
+    `Start and End dates are required in experience ${index + 1}`
+  );
+
           }
         );
         break;
