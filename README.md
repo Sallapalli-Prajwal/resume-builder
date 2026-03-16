@@ -156,6 +156,9 @@ npm run dev
 |----------|-------------|---------|
 | `MONGO_URI` | MongoDB connection string | `mongodb://localhost:27017/resume-builder` |
 | `JWT_SECRET` | Secret key for JWT signing | Use a long random string in production |
+| `GOOGLE_GEMINI_API_KEY` | API key for Google Gemini (preferred) | `AIza...` |
+| `AI_API_KEY` | (Optional) Fallback API key env var name | `AIza...` |
+| `GEMINI_MODEL` | (Optional) Gemini model name | `models/gemini-2.5-flash` |
 
 ---
 
@@ -177,7 +180,98 @@ npm run dev
 | PUT | `/api/resume/:id` | Update resume (auth) |
 | DELETE | `/api/resume/:id` | Delete resume (auth) |
 | POST | `/api/resume/:id/upload-images` | Upload images for resume (auth) |
+### AI
 
+All AI endpoints expect JSON and return structured JSON suitable for the frontend.
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/ai/rewrite-bullet` | Improve a single resume bullet for a target role |
+| POST | `/api/ai/generate-summary` | Generate a professional resume summary |
+| POST | `/api/ai/suggest-skills` | Suggest missing skills/technologies based on resume content and target role |
+
+#### Example: `POST /api/ai/rewrite-bullet`
+
+Request body:
+
+```json
+{
+  "bullet": "Built a trading bot",
+  "targetRole": "Software Engineer"
+}
+```
+
+Response body:
+
+```json
+{
+  "improvedBullet": "Developed an algorithmic trading bot using Python that automated strategy execution and evaluated performance using historical market datasets.",
+  "atsVersion": "Developed Python-based algorithmic trading bot to automate strategy execution and backtest performance on historical market data.",
+  "keywordsAdded": ["Python", "Algorithmic Trading", "Backtesting", "Automation"]
+}
+```
+
+#### Example: `POST /api/ai/generate-summary`
+
+Request body:
+
+```json
+{
+  "experiences": "2+ years building backend services and REST APIs, experience with microservices and distributed systems.",
+  "skills": "Node.js, Express, MongoDB, Docker, Kubernetes, AWS",
+  "targetRole": "Backend Software Engineer"
+}
+```
+
+Response body:
+
+```json
+{
+  "summary": "Backend Software Engineer with hands-on experience building scalable REST APIs and microservices using Node.js, Express, and MongoDB. Skilled in designing resilient distributed systems and deploying containerized workloads with Docker and Kubernetes on AWS."
+}
+```
+
+#### Example: `POST /api/ai/suggest-skills`
+
+Request body:
+
+```json
+{
+  "resumeText": "Experience with Python, NumPy, Pandas, and scikit-learn. Built several machine learning models for classification tasks.",
+  "targetRole": "Machine Learning Engineer"
+}
+```
+
+Response body:
+
+```json
+{
+  "suggestedSkills": [
+    "TensorFlow",
+    "PyTorch",
+    "MLOps",
+    "Docker",
+    "Kubernetes",
+    "Distributed Training",
+    "Model Monitoring"
+  ]
+}
+```
+
+---
+
+## AI Resume Assistant (Frontend)
+
+On the resume editor page, an **AI Assistant Panel** is available to provide ATS-focused help:
+
+- **AI Bullet Point Improvement** (`BulletRewriteBox`): Enter a bullet and target role, then click **Improve with AI** to receive:
+  - Improved bullet
+  - ATS-optimized version
+  - Keywords added
+- **AI Resume Summary Generator** (`SummaryGenerator`): Provide short descriptions of past experience, key skills, and a target role to generate a professional summary.
+- **Skill Suggestions** (`SkillSuggestions`): Paste resume content and a target role to receive suggested missing skills and technologies.
+
+All components use loading states, basic validation, and error handling around the `/api/ai` endpoints.
 ---
 
 ## Usage

@@ -4,6 +4,7 @@ import 'dotenv/config'
 import { connectDB } from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import resumeRoutes from './routes/resumeRoutes.js';
+import aiRoutes from './ai/aiRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 // Get the current directory name and file name
@@ -28,7 +29,8 @@ connectDB()
 app.use(express.json());
 
 app.use('/api/auth', userRoutes);
-app.use('/api/resume',resumeRoutes);
+app.use('/api/resume', resumeRoutes);
+app.use('/api/ai', aiRoutes);
 app.use('/uploads',
     express.static(path.join(__dirname, 'uploads'), {
         setHeaders : (res,_path) =>{

@@ -40,6 +40,7 @@ import {
 import RenderResume from "../components/RenderResume";
 import Modal from "./Modal";
 import ThemeSelector from "./ThemeSelector";
+import AIAssistantPanel from "./ai/AIAssistantPanel";
 const useResizeObserver = () => {
   const [size, setSize] = useState({ width: 0, height: 0 });
   const ref = useCallback((node) => {
@@ -771,6 +772,7 @@ const EditResume = () => {
           <div className={containerStyles.formContainer}>
             <StepProgress progress={progress} />
             {renderForm()}
+            <AIAssistantPanel />
             <div className="p-4 sm:p-6">
               {errorMsg && (
                 <div className={statusStyles.error}>

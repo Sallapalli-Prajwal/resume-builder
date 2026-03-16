@@ -1,4 +1,4 @@
-export const BASE_URL = "http://54.151.121.90:4000/";
+export const BASE_URL = "http://localhost:4000";
 
 // Routes used for frontend;
 
@@ -15,6 +15,11 @@ export const API_PATHS = {
     UPDATE: (id) => `/api/resume/${id}`,
     DELETE: (id) => `/api/resume/${id}`,
     UPLOAD_IMAGES: (id) => `/api/resume/${id}/upload-images`,
+  },
+  AI: {
+    REWRITE_BULLET: "/api/ai/rewrite-bullet",
+    GENERATE_SUMMARY: "/api/ai/generate-summary",
+    SUGGEST_SKILLS: "/api/ai/suggest-skills",
   },
   image: {
     UPLOAD_IMAGE: "/api/auth/upload-image",
